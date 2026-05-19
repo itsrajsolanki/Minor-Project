@@ -1,0 +1,331 @@
+/* ============================================================
+   login.css  –  KisanConnect Login / Register Page Styles
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+
+:root {
+    --primary:       #2d6a4f;
+    --primary-light: #40916c;
+    --primary-glow:  rgba(64, 145, 108, 0.35);
+    --dark:          #1b4332;
+    --accent:        #10ac84;
+    --white:         #ffffff;
+    --border:        rgba(255,255,255,0.25);
+    --text-main:     #1e293b;
+    --text-light:    #64748b;
+    --error-bg:      #fee2e2;
+    --error-text:    #b91c1c;
+    --success-bg:    #dcfce7;
+    --success-text:  #15803d;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── Body / Background ─────────────────────────────────────── */
+body {
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: url('bg-image.jpg.png') no-repeat center center fixed;
+    background-size: cover;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Blurred dark overlay */
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 30, 20, 0.55);
+    backdrop-filter: blur(6px);
+    z-index: 0;
+}
+
+/* Floating green orbs */
+body::after {
+    content: '';
+    position: fixed;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(16,172,132,0.25) 0%, transparent 70%);
+    top: -100px; left: -100px;
+    animation: orbFloat 12s ease-in-out infinite alternate;
+    z-index: 0;
+}
+
+@keyframes orbFloat {
+    0%   { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(120px, 80px) scale(1.15); }
+}
+
+/* ── Login card ────────────────────────────────────────────── */
+.login-wrapper {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 440px;
+    padding: 1rem;
+}
+
+.login-card {
+    background: rgba(255, 255, 255, 0.10);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 2.8rem 2.5rem 2.5rem;
+    box-shadow:
+        0 25px 60px rgba(0,0,0,0.4),
+        0 0 0 1px rgba(255,255,255,0.08) inset,
+        0 0 60px rgba(16,172,132,0.08);
+    animation: cardIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes cardIn {
+    from { opacity: 0; transform: translateY(40px) scale(0.95); }
+    to   { opacity: 1; transform: translateY(0)    scale(1);    }
+}
+
+/* ── Logo area ─────────────────────────────────────────────── */
+.logo-area {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.logo-area img {
+    height: 72px;
+    width: auto;
+    object-fit: contain;
+    mix-blend-mode: screen;
+    filter: drop-shadow(0 0 12px rgba(16,172,132,0.6));
+    margin-bottom: 0.6rem;
+}
+
+.logo-area h1 {
+    font-size: 2rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #10ac84, #0abde3, #5f27cd);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    background-size: 200%;
+    animation: gradShift 4s ease infinite alternate;
+    letter-spacing: -0.5px;
+}
+
+@keyframes gradShift {
+    0%   { background-position: 0%;   }
+    100% { background-position: 100%; }
+}
+
+.logo-area p {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.55);
+    margin-top: 4px;
+}
+
+/* ── Tab switcher ──────────────────────────────────────────── */
+.tab-switcher {
+    display: flex;
+    background: rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: 4px;
+    margin-bottom: 1.8rem;
+    gap: 4px;
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 9px;
+    background: transparent;
+    color: rgba(255,255,255,0.5);
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: none;
+    width: auto;
+    display: block;
+}
+
+.tab-btn.active {
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    color: #fff;
+    box-shadow: 0 4px 15px var(--primary-glow);
+}
+
+.tab-btn:hover:not(.active) {
+    color: rgba(255,255,255,0.85);
+    background: rgba(255,255,255,0.1);
+    transform: none;
+    box-shadow: none;
+}
+
+/* ── Form panels ───────────────────────────────────────────── */
+.form-panel { display: none; }
+.form-panel.active { display: block; }
+
+/* ── Input fields ──────────────────────────────────────────── */
+.field {
+    margin-bottom: 1.2rem;
+}
+
+.field label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.65);
+    margin-bottom: 6px;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+}
+
+.input-wrap {
+    position: relative;
+}
+
+.input-wrap .icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1rem;
+    color: rgba(255,255,255,0.35);
+    pointer-events: none;
+    transition: color 0.3s;
+}
+
+.field input {
+    width: 100%;
+    padding: 12px 14px 12px 42px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 10px;
+    color: #fff;
+    font-size: 0.95rem;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+.field input::placeholder { color: rgba(255,255,255,0.3); }
+
+.field input:focus {
+    border-color: var(--primary-light);
+    background: rgba(255,255,255,0.13);
+    box-shadow: 0 0 0 4px var(--primary-glow);
+    transform: none;
+}
+
+.field input:focus + .icon,
+.input-wrap:focus-within .icon {
+    color: var(--accent);
+}
+
+/* Eye toggle for password */
+.eye-toggle {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.35);
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 4px;
+    width: auto;
+    box-shadow: none;
+    display: flex;
+    align-items: center;
+}
+
+.eye-toggle:hover { color: rgba(255,255,255,0.7); transform: translateY(-50%); box-shadow: none; }
+
+/* Adjust padding when eye toggle present */
+.has-eye input { padding-right: 42px; }
+
+/* ── Submit button ─────────────────────────────────────────── */
+.submit-btn {
+    width: 100%;
+    padding: 14px;
+    margin-top: 0.5rem;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 60%, var(--accent) 100%);
+    background-size: 200%;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    cursor: pointer;
+    transition: all 0.35s ease;
+    box-shadow: 0 6px 25px var(--primary-glow);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    position: relative;
+    overflow: hidden;
+}
+
+.submit-btn::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(255,255,255,0.08);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.submit-btn:hover { background-position: right; box-shadow: 0 10px 35px var(--primary-glow); transform: translateY(-2px); }
+.submit-btn:hover::after { opacity: 1; }
+.submit-btn:active { transform: translateY(0); }
+.submit-btn:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
+
+/* ── Alert messages ────────────────────────────────────────── */
+.alert {
+    padding: 11px 14px;
+    border-radius: 9px;
+    font-size: 0.88rem;
+    font-weight: 500;
+    margin-bottom: 1.2rem;
+    display: none;
+    align-items: center;
+    gap: 8px;
+    animation: alertIn 0.3s ease;
+}
+
+@keyframes alertIn {
+    from { opacity: 0; transform: translateY(-6px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.alert.error   { display: flex; background: var(--error-bg);   color: var(--error-text);   border-left: 4px solid #ef4444; }
+.alert.success { display: flex; background: var(--success-bg); color: var(--success-text); border-left: 4px solid #22c55e; }
+
+/* ── Spinner ───────────────────────────────────────────────── */
+.btn-spinner {
+    width: 18px; height: 18px;
+    border: 2.5px solid rgba(255,255,255,0.3);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    display: none;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Footer note ───────────────────────────────────────────── */
+.card-footer {
+    text-align: center;
+    margin-top: 1.4rem;
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.35);
+}
